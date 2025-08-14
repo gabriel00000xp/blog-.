@@ -8,6 +8,13 @@
     <title>home</title>
 </head>
 <body>
+    <style>
+        .nav {
+            font-size: 24px;
+            color: aqua;
+        }
+    </style>
+
     <header>
         <nav>
             <ul>
@@ -18,7 +25,16 @@
         </nav>
         
             <a href="{% url 'post_new' %}">Create New Post</a>
-        
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}!</p>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+           
+        {% endif %}
 
     </header>
 
